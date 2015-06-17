@@ -1,0 +1,17 @@
+body {
+  font-family: sans-serif;
+}
+
+.banner {
+  text-align: center;
+  margin: 10px;
+}
+
+.container {
+  margin: auto;
+  width: 80%;
+}
+
+h1 {
+  font-weight: 300;
+}
