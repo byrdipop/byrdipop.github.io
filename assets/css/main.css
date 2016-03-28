@@ -22,8 +22,8 @@
 		display: block;
 	}
 
-	#byrdipop {
-	  opacity: 0.3;
+	.transparent {
+	  opacity: 0.6;
 		/*border-radius: 25px;
 		background: #f5f5f5;
 		padding: 20px;
@@ -32,9 +32,11 @@
 	}
 
 	.soundcloud {
-		opacity: 0.5;
+		opacity: 0.6;
 	}
-
+	.black {
+		color: rgb(0,0,0);
+	}
 	body {
 		line-height: 1;
 	}
