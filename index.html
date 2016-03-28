@@ -7,6 +7,7 @@
 <html>
 	<head>
 		<title>byrdipop</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -20,30 +21,45 @@
 		<!-- Header -->
 			<header id="header">
 				<h1 class="transparent black">byrdipop music</h1>
-				<audio controls>
-				  <source src="music/creeper.mp3" type="audio/mpeg">
-				</audio>
+				<div class="song">
+					Creeper -
+					<a href="#" id="creeperPlayButton" onclick="playCreeper()" class="icon fa-play-circle fa-2x"></a>
+					<a href="#" id="creeperStopButton" onclick="stopCreeper()" class="icon fa-hand-paper-o fa-2x"></a>
+					<audio id="creeper">
+						<source src="music/creeper.mp3" type="audio/mpeg">
+					</audio>
+				</div>
 				<div>
-					<!-- <iframe class="soundcloud" width="50%" height="96" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/225898819&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe> -->
 					<h1 class="transparent black">byrdipop mixes</h1>
-					<!-- <iframe class="soundcloud" width="100%" height="96" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/215720419&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe> -->
 				</div>
 			</header>
 
 
 
-			<audio controls>
-			  <source src="music/spacetapesmix.mp3" type="audio/mpeg">
-			</audio>
-		<!-- Footer -->
-			<footer id="footer">
-				<ul class="icons">
-					<li><a href="https://soundcloud.com/byrdipop" class="icon fa-soundcloud"><span class="label">Instagram</span></a></li>
-				</ul>
-			</footer>
-
 		<!-- Scripts -->
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+
+
+			<script>
+				// Hide the button from the get go
+				$("#creeperStopButton").hide();
+
+			  var creeper = document.getElementById("creeper");
+
+				function playCreeper() {
+					creeper.play();
+					$("#creeperPlayButton").hide();
+					$("#creeperStopButton").show();
+				};
+
+				function stopCreeper() {
+					creeper.pause();
+					$("#creeperPlayButton").show();
+					$("#creeperStopButton").hide();
+				};
+
+			</script>
+
 			<script src="assets/js/main.js"></script>
 
 	</body>
