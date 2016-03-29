@@ -21,7 +21,18 @@
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 		display: block;
 	}
+	td {
+		padding: 0.75em;
+		vertical-align: middle;
+		align: center;
+	}
 
+	.song{
+		opacity: 0.6;
+	}
+	.songArt {
+		height: 3em;
+	}
 	.transparent {
 	  opacity: 0.6;
 		/*border-radius: 25px;

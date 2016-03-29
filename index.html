@@ -21,14 +21,32 @@
 		<!-- Header -->
 			<header id="header">
 				<h1 class="transparent black">byrdipop music</h1>
-				<div class="song">
-					Creeper -
-					<a href="#" id="creeperPlayButton" onclick="playCreeper()" class="icon fa-play-circle fa-2x"></a>
-					<a href="#" id="creeperStopButton" onclick="stopCreeper()" class="icon fa-hand-paper-o fa-2x"></a>
-					<audio id="creeper">
-						<source src="music/creeper.mp3" type="audio/mpeg">
-					</audio>
-				</div>
+				<table>
+					<tr class="song">
+						<td><img class= "songArt" src="images/creeperArt.png"></td>
+						<td>Creeper</td>
+						<td>
+							<a href="#" id="creeperPlayButton" onclick="playCreeper()" class="icon fa-play-circle fa-2x"></a>
+							<a href="#" id="creeperStopButton" onclick="stopCreeper()" class="icon fa-hand-paper-o fa-2x"></a>
+						</td>
+						<audio id="creeper">
+							<source src="music/creeper.mp3" type="audio/mpeg">
+						</audio>
+					</tr>
+
+					<tr class="song">
+						<td><img class= "songArt" src="images/breaksArt2.png"></td>
+						<td>Breaks</td>
+						<td>
+							<a href="#" id="breaksPlayButton" onclick="playBreaks()" class="icon fa-play-circle fa-2x"></a>
+							<a href="#" id="breaksStopButton" onclick="stopBreaks()" class="icon fa-hand-paper-o fa-2x"></a>
+						</td>
+						<audio id="breaks">
+							<source src="music/breaks.mp3" type="audio/mpeg">
+						</audio>
+					</tr>
+
+				</table>
 				<div>
 					<h1 class="transparent black">byrdipop mixes</h1>
 				</div>
@@ -56,6 +74,22 @@
 					creeper.pause();
 					$("#creeperPlayButton").show();
 					$("#creeperStopButton").hide();
+				};
+
+				$("#breaksStopButton").hide();
+
+				var breaks = document.getElementById("breaks");
+
+				function playBreaks() {
+					breaks.play();
+					$("#breaksPlayButton").hide();
+					$("#breaksStopButton").show();
+				};
+
+				function stopBreaks() {
+					breaks.pause();
+					$("#breaksPlayButton").show();
+					$("#breaksStopButton").hide();
 				};
 
 			</script>
