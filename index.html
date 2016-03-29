@@ -20,77 +20,269 @@
 
 		<!-- Header -->
 			<header id="header">
+
 				<h1 class="transparent black">byrdipop music</h1>
-				<table>
-					<tr class="song">
+				<table class="center">
+					<tr class="song" onclick="clickTrack(0)">
 						<td><img class= "songArt" src="images/creeperArt.png"></td>
 						<td>Creeper</td>
-						<td>
-							<a href="#" id="creeperPlayButton" onclick="playCreeper()" class="icon fa-play-circle fa-2x"></a>
-							<a href="#" id="creeperStopButton" onclick="stopCreeper()" class="icon fa-hand-paper-o fa-2x"></a>
-						</td>
-						<audio id="creeper">
-							<source src="music/creeper.mp3" type="audio/mpeg">
-						</audio>
 					</tr>
 
-					<tr class="song">
+					<tr class="song" onclick="clickTrack(1)">
 						<td><img class= "songArt" src="images/breaksArt2.png"></td>
 						<td>Breaks</td>
-						<td>
-							<a href="#" id="breaksPlayButton" onclick="playBreaks()" class="icon fa-play-circle fa-2x"></a>
-							<a href="#" id="breaksStopButton" onclick="stopBreaks()" class="icon fa-hand-paper-o fa-2x"></a>
-						</td>
-						<audio id="breaks">
-							<source src="music/breaks.mp3" type="audio/mpeg">
-						</audio>
 					</tr>
 
 				</table>
-				<div>
-					<h1 class="transparent black">byrdipop mixes</h1>
-				</div>
 			</header>
 
+			<header id="header">
+				<h1 class="transparent black">byrdipop mixes</h1>
+				<table class= "center">
+					<tr class="song" onclick="clickTrack(2)">
+						<td><img class= "songArt" src="images/spaceTapesMixArt.png"></td>
+						<td>Space Tapes Mix</td>
+					</tr>
+				</table>
+			</header>
 
+			<div class="musicPlayer">
+				<table class="center test" width="60%">
+					<col width="26%">
+					<col width="50%">
+					<col width="8%">
+					<col width="8%">
+					<col width="8%">
+
+					<tr>
+						<td><img class="songArt artwork" src="images/spaceTapesMixArt.png"></td>
+						<td>
+							<p class="title"></p>
+							<p class="artist"></p>
+						</td>
+						<td>
+							<i class="fa fa-step-backward fa-1x" onclick="hitPrev()"></i>
+						</td>
+						<td>
+							<i class="fa fa-play-circle fa-2x playButton" onclick="playButton()"></i>
+							<i class="fa fa-hand-paper-o fa-2x stopButton" onclick="stopButton()"></i>
+						</td>
+						<td>
+							<i class="fa fa-step-forward fa-1x" onclick="hitNext()"></i>
+						</td>
+					</tr>
+
+					<tr >
+
+					</tr>
+				</table>
+			</div>
 
 		<!-- Scripts -->
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 
+			<audio id="boomBox">
+				<source src="music/creeper.mp3" type="audio/mpeg">
+			</audio>
 
 			<script>
-				// Hide the button from the get go
-				$("#creeperStopButton").hide();
+			// fa-thumbs-o-up Thumbs down
 
-			  var creeper = document.getElementById("creeper");
 
-				function playCreeper() {
-					creeper.play();
-					$("#creeperPlayButton").hide();
-					$("#creeperStopButton").show();
+
+		//	var now = [currentTrackIndex, currentSongIndex];
+
+				var creeper = {
+					"source": "music/creeper.mp3",
+					"artwork": "images/creeperArt.png",
+					"songs": [
+						{
+							"title":"creeper",
+							"artist":"byrdipop",
+							"startTime":"0"
+						}
+					]
 				};
 
-				function stopCreeper() {
-					creeper.pause();
-					$("#creeperPlayButton").show();
-					$("#creeperStopButton").hide();
+				var breaks = {
+				"source": "music/breaks.mp3",
+				"artwork": "images/breaksArt.png",
+				"songs": [
+					{
+						"title":"breaks",
+						"artist":"byrdipop",
+						"startTime":"0"
+					}
+				]
+			};
+
+			var spaceTapesMix = {
+		 "source": "music/spaceTapesMix.mp3",
+			"artwork": "images/spaceTapesMixArt.png",
+			"songs": [
+				{
+					"title":"A Little Second Of You",
+					"artist":"Knotted Sheets",
+					"startTime":"0"
+				},
+
+				{
+					"title":"Foreign Heart",
+					"artist":"DJAO",
+					"startTime":"300"
+				},
+				{
+					"title":"Shifting",
+					"artist":"James Rhodes",
+					"startTime":"600"
+				}
+			]
+		}
+
+				var tracks = [
+					creeper,
+					breaks,
+					spaceTapesMix
+				];
+
+				var trackNow = tracks.length - 1;
+				var songNow = tracks[trackNow].songs.length - 1;
+
+
+
+
+				function clickTrack(track){
+					trackNow = track;
+					songNow = 0;
+
+					setTitle();
+
+					loadTape();
+
+				}
+
+				function loadTape() {
+					tape = tracks[trackNow].source;
+					$("#boomBox source").attr("src", tape );
+					$("#boomBox").load();
+
+					$(".artwork").attr("src", tracks[trackNow].artwork);
+					playButton();
+
+					var boomBox = document.getElementById("boomBox");
+					playBoomBox();
 				};
 
-				$("#breaksStopButton").hide();
+				function hitNext(){
+					tickUp();
+					nextButton();
+				}
 
-				var breaks = document.getElementById("breaks");
+				function hitPrev(){
+					tickDown();
+					nextButton();
+				}
 
-				function playBreaks() {
-					breaks.play();
-					$("#breaksPlayButton").hide();
-					$("#breaksStopButton").show();
+				function currentSong() {
+					return tracks[trackNow].songs[songNow];
+				}
+
+				function tickDown() {
+					if (boomBox.currentTime - currentSong().startTime > 3 ) {
+						boomBox.currentTime = currentSong().startTime;
+						return true;
+					}
+
+					if (trackNow >= tracks.length) {
+						trackNow = 0;
+					}
+
+					if (songNow === 0) {
+						if (trackNow === 0) {
+							trackNow = tracks.length;
+						}
+						trackNow=trackNow-1;
+						songNow= 0;
+						loadTape();
+					} else {
+						songNow=songNow-1;
+
+					}
+
+
+				}
+
+				function tickUp() {
+					boomBox.currentTime = currentSong().startTime;
+
+					if (songNow>=tracks[trackNow].songs.length - 1) {
+						trackNow=trackNow+1;
+						songNow=0;
+					} else {
+						songNow=songNow+1;
+					}
+
+					if (trackNow >= tracks.length) {
+						trackNow = 0;
+					}
+				}
+
+				function setTitle() {
+					$(".title").html(currentSong().title );
+					$(".artist").html(currentSong().artist );
+
+
 				};
 
-				function stopBreaks() {
-					breaks.pause();
-					$("#breaksPlayButton").show();
-					$("#breaksStopButton").hide();
+				function nextButton() {
+					setTitle();
+
+					if (songNow === 0) {
+						loadTape();
+					} else {
+						boomBox.currentTime = currentSong().startTime
+					}
+
 				};
+
+				function playBoomBox(){
+
+					boomBox.play();
+				}
+
+
+				$(".stopButton").hide();
+			  var boomBox = document.getElementById("boomBox");
+
+				function playButton() {
+					playBoomBox();
+					$(".playButton").hide();
+					$(".stopButton").show();
+				};
+
+				function stopButton() {
+					boomBox.pause();
+					$(".playButton").show();
+					$(".stopButton").hide();
+				};
+
+				hitNext();
+				stopButton();
+
+
+
+
+				// var creeper = {
+				// 	"artwork": "images/creeperArt.png",
+				// 	"songs": [
+				// 		{
+				// 			"title":"creeper",
+				// 			"artist":"byrdipop",
+				// 			"startTime":"0"
+				// 		}
+				// 	]
+				// };
+
 
 			</script>
 
