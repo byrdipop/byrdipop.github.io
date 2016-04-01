@@ -1,13 +1,6 @@
 @import url(font-awesome.min.css);
 @import url("http://fonts.googleapis.com/css?family=Roboto:400,700");
 
-/*
-	Eventually by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
-
-/* Reset */
 
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
 		margin: 0;
@@ -37,17 +30,44 @@
 		border: 2px;
 		border: medium solid;
 		border-color: black;
-		padding-left: 0;
-		margin-left: 0;
-
+		padding-top: 1em;
+		padding-left: 30%;
+		padding-right: 30%;
 		opacity: 0.9;
 	}
 
-	.player{
-		/*border: 2px;
-		border: medium solid;
-		border-color: red;
-		margin-bottom: 1em;*/
+	.musicPlayer > p, img, div {
+		float: left;
+	}
+
+	.musicPlayer > p {
+		padding: 1em;
+	}
+
+	.artist-info {
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+
+	.skip {
+		padding: 1em;
+	}
+
+	.rating {
+		padding-left: 4em;
+	}
+	.rating > i{
+		padding-left: 1em;
+		padding-top: 1em;
+	}
+
+	.green {
+		color: green;
+	}
+
+
+	.play-stop {
+		/*padding-top: 1em*/
 	}
 
 
@@ -73,11 +93,6 @@
 	}
 	.transparent {
 	  opacity: 0.6;
-		/*border-radius: 25px;
-		background: #f5f5f5;
-		padding: 20px;
-		width: 5em;*/
-
 	}
 
 	.soundcloud {
@@ -97,6 +112,7 @@
 	blockquote, q {
 		quotes: none;
 	}
+
 
 	blockquote:before, blockquote:after, q:before, q:after {
 		content: '';
@@ -429,9 +445,9 @@
 		font-style: italic;
 	}
 
-	p {
+	/*p {
 		margin: 0 0 2em 0;
-	}
+	}*/
 
 	h1, h2, h3, h4, h5, h6 {
 		color: #fff;
