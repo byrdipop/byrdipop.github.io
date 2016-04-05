@@ -102,12 +102,12 @@ function getTape(name) {
   return tracks[name];
 }
 
-var creeperSong = new Song("creeper", "byrdipop", 0);
+// var creeperSong = new Song("creeper", "byrdipop", 0);
 var creeper = new Track(
   "https://soundcloud.com/byrdipop/creeper",
   "images/creeperArt.png",
   [
-    creeperSong
+    new Song("creeper", "byrdipop", 0)
   ]
 );
 
