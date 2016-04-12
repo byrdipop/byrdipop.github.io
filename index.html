@@ -8,6 +8,8 @@
 	<head>
 		<title>byrdipop</title>
 		<script src="javascripts/jquery-1.12.2.min.js"></script>
+		<script src="javascripts/soundcloud.js"></script>
+
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -22,6 +24,10 @@
 			<header id="header">
 
 				<h1 class="transparent black">byrdipop music</h1>
+
+				<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/225898819&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+
+
 				<table class="center">
 					<tr class="song" onclick="clickTrack(0)">
 						<td><img class= "songArt" src="images/creeperArt.png"></td>
@@ -52,85 +58,24 @@
 					<p class="title"></p>
 					<p class="artist"></p>
 				</div>
+
 				<div class="controls">
 					<i class="fa fa-step-backward fa-1x skip" onclick="hitPrev()"></i>
 					<i class="fa fa-play-circle fa-2x playButton play-stop" onclick="playButton()"></i>
 					<i class="fa fa-hand-paper-o fa-2x stopButton play-stop" onclick="stopButton()"></i>
 					<i class="fa fa-step-forward fa-1x skip" onclick="hitNext()"></i>
 				</div>
+				
 				<div class="rating">
 					<i class="fa fa-thumbs-o-down fa-1x" onclick="thumbsDown()"></i>
 					<i class="fa fa-thumbs-o-up fa-1x downVote" onclick="thumbsUp()"></i>
 				</div>
 			</div>
 
-		<!-- Scripts -->
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 
-			<audio id="boomBox">
-				<source src="music/creeper.mp3" type="audio/mpeg">
-			</audio>
+			<script src="assets/js/boombox.js"></script>
 
 			<script>
-			// fa-thumbs-o-up Thumbs down
-
-
-				var creeper = {
-					"source": "music/creeper.mp3",
-					"artwork": "images/creeperArt.png",
-					"songs": [
-						{
-							"title":"creeper",
-							"artist":"byrdipop",
-							"startTime":"0"
-						}
-					]
-				};
-
-				var breaks = {
-				"source": "music/breaks.mp3",
-				"artwork": "images/breaksArt.png",
-				"songs": [
-					{
-						"title":"breaks",
-						"artist":"byrdipop",
-						"startTime":"0"
-					}
-				]
-			};
-
-			var spaceTapesMix = {
-		 "source": "music/spaceTapesMix.mp3",
-			"artwork": "images/spaceTapesMixArt.png",
-			"songs": [
-				{
-					"title":"A Little Second Of You",
-					"artist":"Knotted Sheets",
-					"startTime":"0"
-				},
-
-				{
-					"title":"Foreign Heart",
-					"artist":"DJAO",
-					"startTime":"300"
-				},
-				{
-					"title":"Shifting",
-					"artist":"James Rhodes",
-					"startTime":"600"
-				}
-			]
-		}
-
-				var tracks = [
-					creeper,
-					breaks,
-					spaceTapesMix
-				];
-
-				var trackNow = tracks.length - 1;
-				var songNow = tracks[trackNow].songs.length - 1;
-
 
 				function thumbsDown(){
 					document.body.innerHTML = '<i class="fa fa-hand-peace-o fa-2x"></i>';
@@ -139,141 +84,6 @@
 				function thumbsUp(){
 					$(".downVote").toggleClass("green");
 				}
-
-
-
-
-				function clickTrack(track){
-					trackNow = track;
-					songNow = 0;
-
-					setTitle();
-
-					loadTape();
-
-				}
-
-				function loadTape() {
-					tape = tracks[trackNow].source;
-					$("#boomBox source").attr("src", tape );
-					$("#boomBox").load();
-
-					$(".artwork").attr("src", tracks[trackNow].artwork);
-					playButton();
-
-					var boomBox = document.getElementById("boomBox");
-					playBoomBox();
-				};
-
-				function hitNext(){
-					tickUp();
-					nextButton();
-				}
-
-				function hitPrev(){
-					tickDown();
-					nextButton();
-				}
-
-				function currentSong() {
-					return tracks[trackNow].songs[songNow];
-				}
-
-				function tickDown() {
-					if (boomBox.currentTime - currentSong().startTime > 3 ) {
-						boomBox.currentTime = currentSong().startTime;
-						return true;
-					}
-
-					if (trackNow >= tracks.length) {
-						trackNow = 0;
-					}
-
-					if (songNow === 0) {
-						if (trackNow === 0) {
-							trackNow = tracks.length;
-						}
-						trackNow=trackNow-1;
-						songNow= 0;
-						loadTape();
-					} else {
-						songNow=songNow-1;
-
-					}
-
-
-				}
-
-				function tickUp() {
-					boomBox.currentTime = currentSong().startTime;
-
-					if (songNow>=tracks[trackNow].songs.length - 1) {
-						trackNow=trackNow+1;
-						songNow=0;
-					} else {
-						songNow=songNow+1;
-					}
-
-					if (trackNow >= tracks.length) {
-						trackNow = 0;
-					}
-				}
-
-				function setTitle() {
-					$(".title").html(currentSong().title );
-					$(".artist").html(currentSong().artist );
-
-
-				};
-
-				function nextButton() {
-					setTitle();
-
-					if (songNow === 0) {
-						loadTape();
-					} else {
-						boomBox.currentTime = currentSong().startTime
-					}
-
-				};
-
-				function playBoomBox(){
-
-					boomBox.play();
-				}
-
-
-				$(".stopButton").hide();
-			  var boomBox = document.getElementById("boomBox");
-
-				function playButton() {
-					playBoomBox();
-					$(".playButton").hide();
-					$(".stopButton").show();
-				};
-
-				function stopButton() {
-					boomBox.pause();
-					$(".playButton").show();
-					$(".stopButton").hide();
-				};
-
-				hitNext();
-				stopButton();
-
-
-
-
-				// var creeper = {
-				// 	"artwork": "images/creeperArt.png",
-				// 	"songs": [
-				// 		{
-				// 			"title":"creeper",
-				// 			"artist":"byrdipop",
-				// 			"startTime":"0"
-				// 		}
-				// 	]
-				// };
 
 
 			</script>
